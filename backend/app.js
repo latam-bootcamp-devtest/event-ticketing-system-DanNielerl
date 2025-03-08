@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const sequelize = require('./config/database');
 var eventsRouter = require('./routes/eventsRouter');
+var ticketsRouter = require('./routes/ticketsRouter');
 
 
 var app = express();
@@ -21,6 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/events', eventsRouter);
+app.use('/tickets', ticketsRouter);
 
 const startServer = async () => {
   try {

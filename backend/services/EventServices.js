@@ -1,8 +1,5 @@
-var events = []
 const Event = require('../models/EventModel');
 const { Sequelize } = require('sequelize');
-
-
 
 async function createEvent (data) {
 

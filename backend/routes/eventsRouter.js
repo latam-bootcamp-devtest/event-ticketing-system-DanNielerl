@@ -30,7 +30,6 @@ router.get('/',
   async (req, res, next) => {
     const page = parseInt(req.query.page, 10) || 1;
     const pagesize = parseInt(req.query.pagesize, 10) || 10;
-    const offset = (page - 1) * pagesize;
 
     const events = await eventServices.getDynamicPaginatedEvents(page, pagesize);
     // console.log(events.count)

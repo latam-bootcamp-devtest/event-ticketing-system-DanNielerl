@@ -1,24 +1,20 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Event = sequelize.define('Event', {
-  eventId: {
+const Ticket = sequelize.define('Ticket', {
+  ticketId: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   },
-  name: {
-    type: DataTypes.STRING,
+  userId: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
-  date: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  availableSeats: {
+  eventId: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
 }, { timestamps: false });
 
-module.exports = Event;
+module.exports = Ticket;
