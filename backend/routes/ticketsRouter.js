@@ -12,4 +12,14 @@ router.post('/',
     }
 );
 
+router.delete('/:id',
+    async (req, res, next) => {
+        console.log(req.params, "estos son los params");
+        const { id } = req.params
+        const response = await ticketServices.deleteTicket(id);
+        if(response.status) { res.status(response.status).json({message: response.message})}
+        res.status(204).json({message: "No content"});
+    }
+);
+
 module.exports = router;

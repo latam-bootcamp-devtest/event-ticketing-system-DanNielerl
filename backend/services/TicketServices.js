@@ -9,14 +9,37 @@ async function createTicket (data) {
         },
     });
 
-    if(!event){ return {status: 404 , message: "Event not found"}}
+    if(!event){ return {status: 404 , message: "Event not found"}};
 
     if(event.availableSeats === 0) { return { status: 409, message: "Conflict"}}
 
     return await Ticket.create(data);
 };
 
+const deleteTicket = async (id) => {
+    const ticket = await Ticket.findByPk(id);
+    if (!ticket) { return {status: 404 , message: "Ticket not found"}};
+    const event = await Event.findOne({where: {date: { [Sequelize.Op.gt]: new Date },}})
+    if (!event) { return {status: 400 , message: "Bad Request (Cannot cancel past events)"}}; 
+    Event.update(
+        { availableSeats: event.availableSeats +1 },
+        {
+          where: {
+            eventId: ticket.eventId,
+          },
+        },
+      );
+
+    await Ticket.destroy({
+        where: {
+          ticketId: id,
+        },
+    });
+
+    return ticket;
+};
 
 module.exports = {
-    createTicket
+    createTicket,
+    deleteTicket
 }
