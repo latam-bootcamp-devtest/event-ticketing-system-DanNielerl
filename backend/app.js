@@ -6,7 +6,7 @@ var logger = require('morgan');
 const sequelize = require('./config/database');
 var eventsRouter = require('./routes/eventsRouter');
 var ticketsRouter = require('./routes/ticketsRouter');
-
+var usersRouter = require('./routes/usersRouter');
 
 var app = express();
 
@@ -23,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/events', eventsRouter);
 app.use('/tickets', ticketsRouter);
+app.use('/users', usersRouter);
 
 const startServer = async () => {
   try {
