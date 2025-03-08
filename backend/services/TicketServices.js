@@ -13,6 +13,15 @@ async function createTicket (data) {
 
     if(event.availableSeats === 0) { return { status: 409, message: "Conflict"}}
 
+    Event.update(
+        { availableSeats: event.availableSeats - 1 },
+        {
+          where: {
+            eventId: data.eventId,
+          },
+        },
+    );
+
     return await Ticket.create(data);
 };
 
@@ -28,7 +37,7 @@ const deleteTicket = async (id) => {
             eventId: ticket.eventId,
           },
         },
-      );
+    );
 
     await Ticket.destroy({
         where: {
